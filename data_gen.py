@@ -19,6 +19,7 @@ def data_gen(gate_type, lines, gen_type):
             row_f_col.append(f_col)
             row_s_col.append(s_col)
         print(row_f_col, row_s_col)
+
     else:
         print("koniec")
 
