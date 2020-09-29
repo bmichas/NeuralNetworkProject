@@ -11,11 +11,11 @@ def data_gen_gate(gate_type, lines, gen_type):
     row_final_col = []
 
     # tablica do zmiany liczby na bramke
-    gate_name = {'1': 'AND', '2': 'OR', '3': 'NOT',
-                 '4': 'NAND', '5': 'NOR', '6': 'XOR', '7': 'XNOR'}
+    gate_name_dict = {'1': 'AND', '2': 'OR',
+                      '3': 'NAND', '4': 'NOR', '5': 'XOR', '6': 'XNOR'}
     gate_type = str(gate_type)
     # zamiana zmiennej gate type na slowo przedstawiajace bramke
-    fin_gate_name = gate_name[gate_type]
+    fin_gate_name = gate_name_dict[gate_type]
     print(fin_gate_name)
     # generowanie dwóch pierwszych kolumn
     for _ in range(0, lines):
@@ -27,11 +27,9 @@ def data_gen_gate(gate_type, lines, gen_type):
         row_s_col.append(s_col)
 
     # generator trzeciej kolumny referencyjnej z wynikiem pewnym
-
     # Dla bramki AND
     if fin_gate_name == 'AND':
         for i in range(len(row_f_col)):
-            print(row_f_col[i], row_s_col[i])
             if row_f_col[i] == 1 and row_s_col[i] == 1:
                 final_col = 1
                 row_final_col.append(final_col)
@@ -39,25 +37,60 @@ def data_gen_gate(gate_type, lines, gen_type):
                 final_col = 0
                 row_final_col.append(final_col)
     # Dla bramki OR
-    # elif gate_type == 'OR':
-    #     pass
-    # # Dla bramki NOT
-    # elif gate_type == 'NOT':
-    #     pass
-    # # Dla bramki NAND
-    # elif gate_type == 'NAND':
-    #     pass
-    # # Dla bramki NOR
-    # elif gate_type == 'NOR':
-    #     pass
-    # # Dla bramki XOR
-    # elif gate_type == 'XOR':
-    #     pass
-    # # Dla bramki XNOR
-    # elif gate_type == 'XNOR':
-    #     pass
-
-    print(row_f_col, row_s_col, row_final_col)
+    elif fin_gate_name == 'OR':
+        for i in range(len(row_f_col)):
+            if row_f_col[i] == 0 and row_s_col[i] == 0:
+                final_col = 0
+                row_final_col.append(final_col)
+            else:
+                final_col = 1
+                row_final_col.append(final_col)
+    # Dla bramki NAND
+    elif fin_gate_name == 'NAND':
+        for i in range(len(row_f_col)):
+            if row_f_col[i] == 1 and row_s_col[i] == 1:
+                final_col = 0
+                row_final_col.append(final_col)
+            else:
+                final_col = 1
+                row_final_col.append(final_col)
+    # Dla bramki NOR
+    elif fin_gate_name == 'NOR':
+        for i in range(len(row_f_col)):
+            if row_f_col[i] == 0 and row_s_col[i] == 0:
+                final_col = 1
+                row_final_col.append(final_col)
+            else:
+                final_col = 0
+                row_final_col.append(final_col)
+    # Dla bramki XOR
+    elif fin_gate_name == 'XOR':
+        for i in range(len(row_f_col)):
+            if row_f_col[i] == 0 and row_s_col[i] == 0:
+                final_col = 0
+                row_final_col.append(final_col)
+            elif row_f_col[i] == 1 and row_s_col[i] == 1:
+                final_col = 0
+                row_final_col.append(final_col)
+            else:
+                final_col = 1
+                row_final_col.append(final_col)
+    # Dla bramki XNOR
+    elif fin_gate_name == 'XNOR':
+        for i in range(len(row_f_col)):
+            if row_f_col[i] == 0 and row_s_col[i] == 0:
+                final_col = 1
+                row_final_col.append(final_col)
+            elif row_f_col[i] == 1 and row_s_col[i] == 1:
+                final_col = 1
+                row_final_col.append(final_col)
+            else:
+                final_col = 0
+                row_final_col.append(final_col)
+    print("Wybrałeś bramkę: ", gate_type)
+    print(row_f_col)
+    print(row_s_col)
+    print(row_final_col)
 
 
 def mat_function():
@@ -70,11 +103,10 @@ def logic_gates():
     print("Wybierz rodzaj bramki logicznej: ")
     print("1. AND")
     print("2. OR")
-    print("3. NOT")
-    print("4. NAND")
-    print("5. NOR")
-    print("6. XOR")
-    print("7. XNOR")
+    print("3. NAND")
+    print("4. NOR")
+    print("5. XOR")
+    print("6. XNOR")
     print("0. Cofnij")
     gate = valInput(2)
     # liczba na końcu przedstawia czy generowanie dla bramek logicznych "1" czy matematyczne "2"
@@ -83,7 +115,7 @@ def logic_gates():
 
 def valInput(CheckType):
     pick = input("Wybierz co chesz zrobić: ")
-    gates = [1, 2, 3, 4, 5, 6, 7]
+    gates = [1, 2, 3, 4, 5, 6]
     # Wybierranie co chcesz zrobic czy matematyczne czy bramka
     if CheckType == 0:
         while True:
