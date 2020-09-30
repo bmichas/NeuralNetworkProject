@@ -1,4 +1,5 @@
 import random
+from pandas import DataFrame
 
 
 def data_gen_gate(gate_type, lines, gen_type):
@@ -88,9 +89,16 @@ def data_gen_gate(gate_type, lines, gen_type):
                 final_col = 0
                 row_final_col.append(final_col)
     print("Wybrałeś bramkę: ", gate_type)
+    # wszystkie bramki logiczne 1 lista
+    logic_gate_list = [row_f_col, row_s_col, row_s_col]
     print(row_f_col)
     print(row_s_col)
     print(row_final_col)
+    print("====================")
+    print(logic_gate_list)
+    df = DataFrame(logic_gate_list).transpose()
+    df.columns = ['p', 'q', 'final']
+    print(df)
 
 
 def mat_function():
