@@ -1,5 +1,6 @@
 import random
 from pandas import DataFrame
+from nn import neural_network
 
 
 def data_gen_gate(gate_type, lines, gen_type):
@@ -89,16 +90,34 @@ def data_gen_gate(gate_type, lines, gen_type):
                 final_col = 0
                 row_final_col.append(final_col)
     print("Wybrałeś bramkę: ", gate_type)
+    # //////////////////////////////
+    # Printy odzielnychdanych
+    # //////////////////////////////
+    # print(row_f_col)
+    # print(row_s_col)
+    # print(row_final_col)
+    # print("====================")
+    # print(logic_gate_list)
+    # //////////////////////////////
+    # //////////////////////////////
+
     # wszystkie bramki logiczne 1 lista
-    logic_gate_list = [row_f_col, row_s_col, row_s_col]
-    print(row_f_col)
-    print(row_s_col)
-    print(row_final_col)
-    print("====================")
-    print(logic_gate_list)
-    df = DataFrame(logic_gate_list).transpose()
-    df.columns = ['p', 'q', 'final']
-    print(df)
+    logic_gate_list = [row_f_col, row_s_col, row_final_col]
+    df_logic_gate = DataFrame(logic_gate_list).transpose()
+    df_logic_gate.columns = ['p', 'q', 'final']
+    print(df_logic_gate)
+
+    # Przygotowywanie danych dla neural network i wysłanie ich do funkcji
+    logic_out = row_final_col
+    logic_in = []
+    logic_row = []
+    for i in range(len(row_f_col)):
+        logic_row = [row_f_col[i], row_s_col[i]]
+        logic_in.append(logic_row)
+    print(logic_in)
+    print(logic_out)
+    neural_network_out = neural_network(logic_in, logic_out)
+    print(neural_network_out)
 
 
 def mat_function():
